@@ -11,28 +11,16 @@ var express        = require("express"),
     User           = require("./models/user"),
     SeedDB         = require("./seeds");
 
-var session = require('express-session');
-
-//-momery unleaked---------
-app.set('trust proxy', 1);
+    const session = require('express-session');
+    const MongoStore = require('connect-mongo')(session);
 
 app.use(session({
-cookie:{
-    secure: true,
-    maxAge:60000
-       },
-store: new RedisStore(),
-secret: 'secret',
-saveUninitialized: true,
-resave: false
+    secret: "No one shall pass",
+    store: new MongoStore(options),
+    resave: false,
+    saveUninitialized: false
+    
 }));
-
-app.use(function(req,res,next){
-if(!req.session){
-    return next(new Error('Oh no')) //handle error
-}
-next() //otherwise continue
-});
 app.use(flash());
 
 var commentRoutes    = require("./routes/comments"),
