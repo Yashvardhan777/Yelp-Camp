@@ -40,8 +40,7 @@ app.use(function(req, res, next){
 });
 
 // SETTING UP MONGOOSE      
-// mongoose.connect("mongodb://localhost/yelp_camp",{useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
-mongoose.connect("mongodb+srv://yashvardhanpandey777:yelpcamp@cluster0-eyikd.mongodb.net/test",{useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect(DATABASEURL,{useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 // setting up  app
 app.set("view engine", "ejs");
