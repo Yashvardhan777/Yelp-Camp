@@ -11,7 +11,7 @@ var express        = require("express"),
     User           = require("./models/user"),
     SeedDB         = require("./seeds");
 
-app.use(require("express-session")({
+app.use(require("cookie-session")({
     secret: "No one shall pass",
     resave: false,
     saveUninitialized: false
