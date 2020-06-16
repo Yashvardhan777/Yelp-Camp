@@ -11,11 +11,28 @@ var express        = require("express"),
     User           = require("./models/user"),
     SeedDB         = require("./seeds");
 
-app.use(require("cookie-session")({
-    secret: "No one shall pass",
-    resave: false,
-    saveUninitialized: false
+var session = require('express-session');
+
+//-momery unleaked---------
+app.set('trust proxy', 1);
+
+app.use(session({
+cookie:{
+    secure: true,
+    maxAge:60000
+       },
+store: new RedisStore(),
+secret: 'secret',
+saveUninitialized: true,
+resave: false
 }));
+
+app.use(function(req,res,next){
+if(!req.session){
+    return next(new Error('Oh no')) //handle error
+}
+next() //otherwise continue
+});
 app.use(flash());
 
 var commentRoutes    = require("./routes/comments"),
