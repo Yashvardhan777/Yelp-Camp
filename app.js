@@ -11,15 +11,10 @@ var express        = require("express"),
     User           = require("./models/user"),
     SeedDB         = require("./seeds");
 
-    const session = require('express-session');
-    const MongoStore = require('connect-mongo')(session);
-
-app.use(session({
+app.use(require("express-session")({
     secret: "No one shall pass",
-    store: new MongoStore(options),
     resave: false,
     saveUninitialized: false
-    
 }));
 app.use(flash());
 
